@@ -1,5 +1,5 @@
 class PrototypesController < ApplicationController
-  before_action :authenticate_user!, only: [:edit, :new, :destroy]
+  before_action :authenticate_user!, except: [:index, :show, :create]
 
   def index
     @prototypes = Prototype.all
@@ -53,10 +53,6 @@ class PrototypesController < ApplicationController
     unless user_signed_in? && current_user.id == @prototype.user_id
       redirect_to action: :index
     end
-  end
-
-  def set_tweet
-    @prototype= Prototype.find(params[:id])
   end
 
 end
